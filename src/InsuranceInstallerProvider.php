@@ -4,7 +4,7 @@ namespace SyntesyDigital\InsuranceInstaller;
 
 use Illuminate\Support\ServiceProvider;
 
-class InstallerProvider extends ServiceProvider
+class InsuranceInstallerProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -15,7 +15,7 @@ class InstallerProvider extends ServiceProvider
     {
         // Register command
         $this->commands([
-            SyntesyDigital\InsuranceInstaller\Installer::class
+            \SyntesyDigital\InsuranceInstaller\Commands\InsuranceInstaller::class
         ]);
     }
 

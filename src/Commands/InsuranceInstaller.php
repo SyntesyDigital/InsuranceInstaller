@@ -4,7 +4,7 @@ namespace SyntesyDigital\InsuranceInstaller\Commands;
 
 use Illuminate\Console\Command;
 
-class Installer extends Command
+class InsuranceInstaller extends Command
 {
     private $packages = [
         [

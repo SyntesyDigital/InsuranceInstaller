@@ -11,7 +11,7 @@
     "extra": {
       "laravel": {
         "providers": [
-          "SyntesyDigital\\InsuranceInstaller\\InstallerProvider"
+          "SyntesyDigital\\InsuranceInstaller\\InsuranceInstallerProvider"
         ]
       }
     },
