@@ -15,7 +15,7 @@ class InstallerProvider extends ServiceProvider
     {
         // Register command
         $this->commands([
-            Commands\Installer::class
+            SyntesyDigital\InsuranceInstaller\Installer::class
         ]);
     }
 
