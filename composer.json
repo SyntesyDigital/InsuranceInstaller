@@ -1,0 +1,27 @@
+{
+    "name": "syntesy-digital/insurance-installer",
+    "description": "Insurance installer package",
+    "authors": [
+      {
+        "name": "SyntesyDigital",
+        "email": "nicolas.delcastillo@syntesy.io"
+      }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+      "laravel": {
+        "providers": [
+          "SyntesyDigital\\InsuranceInstaller\\InstallerProvider"
+        ]
+      }
+    },
+    "autoload": {
+      "psr-4": {
+        "SyntesyDigital\\InsuranceInstaller\\": "src/"
+      }
+    },
+    "require": {
+      "nwidart/laravel-modules": "^4.1"
+    }
+  }
+  
