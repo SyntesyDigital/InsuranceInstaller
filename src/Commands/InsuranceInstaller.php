@@ -10,13 +10,13 @@ class InsuranceInstaller extends Command
         [
             'name' => 'Insurance CMS',
             'description' => 'CMS for Insurance Solution',
-            'url' => 'https://github.com/SyntesyDigital/InsuranceArchitect',
+            'url' => 'https://gitlab.iga.fr/syntesy/insurancearchitect',
             'directory' => 'Architect',
         ],
         [
             'name' => 'Insurance Extranet',
             'description' => 'Extranet for Insurance Solution',
-            'url' => 'https://github.com/SyntesyDigital/InsuranceExtranet',
+            'url' => 'https://gitlab.iga.fr/syntesy/insuranceextranet',
             'directory' => 'Extranet',
         ],
     ];
@@ -48,25 +48,24 @@ class InsuranceInstaller extends Command
     private function prompt()
     {
         $packagesList = collect($this->packages)
-            ->map(function($package){
-                return [$package["name"], $package["description"]];
+            ->map(function ($package) {
+                return [$package['name'], $package['description']];
             });
 
         $packageNames = collect($this->packages)
-            ->map(function($package){
-                return $package["name"];
+            ->map(function ($package) {
+                return $package['name'];
             })->toArray();
 
         $this->info('Syntesy Digital © http://syntesy.io');
 
         $this->table([
             'Package Name',
-            'Description'
+            'Description',
         ], $packagesList);
 
         $this->package = $this->choice('Chose the packages to install', $packageNames, $packageNames[0]);
     }
-
 
     /**
      * Execute the console command.
@@ -77,8 +76,9 @@ class InsuranceInstaller extends Command
     {
         $this->prompt();
 
-        if(!$this->package) {
+        if (!$this->package) {
             $this->error('No package selected');
+
             return false;
         }
 
@@ -86,7 +86,7 @@ class InsuranceInstaller extends Command
 
         if (!is_dir($path)) {
             $this->info(' -> Modules directory no exist... creating');
-            if(mkdir($path, 0775)) {
+            if (mkdir($path, 0775)) {
                 $this->info(' -> OK');
             }
         }
@@ -94,19 +94,21 @@ class InsuranceInstaller extends Command
         // Get package to install
         $package = $this->getPackageByName($this->package);
 
-        if(!$package) {
+        if (!$package) {
             $this->error("$package no found");
+
             return false;
         }
 
-        if(is_dir($path . $package["directory"])) {
-            $this->error('Module '.$package["name"].' is already installed');
+        if (is_dir($path.$package['directory'])) {
+            $this->error('Module '.$package['name'].' is already installed');
+
             return false;
         }
 
         // Clone Module directory
         $this->info(' -> cloning files from repository');
-        exec("git clone ".$package["url"]."  Modules/" . $package["directory"]);
+        exec('git clone '.$package['url'].'  Modules/'.$package['directory']);
 
         // $this->installComposerDependencies($package);
         // $this->installPackage($package);
@@ -116,19 +118,17 @@ class InsuranceInstaller extends Command
         $this->info(' -> composer dump autoload');
         exec('composer dumpautoload');
 
-        if(is_file(base_path() . '/Modules/' . $package["directory"] . '/install.php')) {
+        if (is_file(base_path().'/Modules/'.$package['directory'].'/install.php')) {
             $this->info(' -> run module configurator');
-            include(base_path() . '/Modules/' . $package["directory"] . '/install.php');
+            include base_path().'/Modules/'.$package['directory'].'/install.php';
         }
-    
     }
-
 
     private function getPackageByName($name)
     {
         return collect($this->packages)
-            ->filter(function($item) use ($name) {
-                return $item["name"] === $name ? true : false;
+            ->filter(function ($item) use ($name) {
+                return $item['name'] === $name ? true : false;
             })->first();
     }
 }
